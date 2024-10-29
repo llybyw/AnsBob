@@ -1,6 +1,8 @@
 import argparse
 from train import load_and_prepare_data, create_dataset, setup_tokenizer, preprocess_example, train_model, predictions_to_map_output
 from utils.utils import read_prompt, generate_plan, write_result, use_cached_plan
+from utils.evaluation import evaluate_map_at_3
+
 
 result_dir = './data/extra_data.csv'
 
@@ -14,7 +16,7 @@ def parse_args():
     parser.add_argument('--test_dir', default='./data/test_data_0.5k.csv', help='Directory containing the input CSV training file')
     parser.add_argument('--model_dir', default='./bert-base-cased', help='Directory containing pre-trained model files')
     parser.add_argument('--save_dir', default='./model/finetuned_bert', help='Directory to save your model files')
-
+    parser.add_argument('--sub_dir', default='./output/submission.csv', help='Directory to save your prediction files')
     args = parser.parse_args()
     return args
 
@@ -28,6 +30,7 @@ def main():
     test_dir = args.test_dir
     model_dir = args.model_dir
     save_dir = args.save_dir
+    sub_dir = args.sub_dir
 
     if is_query:
         prompt_text = read_prompt(prompt_dir)
@@ -63,7 +66,7 @@ def main():
     tokenized_train_ds = train_ds.map(preprocess_example, batched=False, remove_columns=['prompt', 'A', 'B', 'C', 'D', 'E', 'answer'])
 
     # 训练模型
-    trainer = train_model(tokenized_train_ds)
+    trainer = train_model(tokenized_train_ds, model_dir, save_dir)
 
     # 对测试集进行相同处理
     test_df = load_and_prepare_data(test_dir)
@@ -76,7 +79,8 @@ def main():
     submission_df = test_df[['id']].copy()
     submission_df['prediction'] = predictions_to_map_output(test_predictions.predictions)
 
-    submission_df.to_csv('./output/submission.csv', index=False)
+    submission_df.to_csv(sub_dir, index=False)
 
+    evaluate_map_at_3(test_dir, sub_dir)
 if __name__ == "__main__":
     main()
