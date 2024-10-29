@@ -1,0 +1,12 @@
+name: Ansbob
+channels:
+  - default
+dependencies:
+  - python>=3.8
+  - pandas
+  - datasets
+  - transformers[torch]
+  - dataclasses
+  - typing
+  - pytorch
+  - dashscope
