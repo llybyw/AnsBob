@@ -70,12 +70,3 @@ def evaluate_map_at_3(test_file, prediction_file):
     map_at_3 = map_at_3_sum / num_questions
     print(f"\nMean Average Precision @ 3 (MAP@3): {map_at_3:.4f}")
 
-
-if __name__ == "__main__":
-
-    # Paths to the test and prediction files
-    test_file = './data/test_data_0.5k.csv'  # Replace with your test file path
-    prediction_file = './output/submission.csv'  # Replace with your prediction file path
-
-    # Evaluate the MAP@3
-    evaluate_map_at_3(test_file, prediction_file)
