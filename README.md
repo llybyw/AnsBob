@@ -12,14 +12,17 @@ The pipeline of our work:
 ### **Prepare your environment**
 
 - Make sure you have installed CUDA and Pytorch.
-- Install the environment by ``conda create env -f environment.yml``
-- Run ``conda activate Ansbob``
+- Install the environment by ``conda env create -f environment.yml``
+- Run ``conda activate Ansbob`` and ``pip install dashscope``
 
 ### **Pre-process data**
 
 If your does not have column named `id`, put your data at ``./data`` folder and run ``python process.py`` which will add ``'id'`` column to every csv file in this directory.
 
-Or run``python process.py --data_dir /path/to/your/dataset_dir --output_dir /path/to/your/output_dir``
+Or run
+
+``python process.py --data_dir /path/to/your/dataset_dir --output_dir /path/to/your/output_dir``
+
 to specify your own directory.
 
 Make sure your ``test.csv`` file header is :
@@ -31,7 +34,7 @@ And your ``test.csv`` file header is :
 ``id,prompt,A,B,C,D,E,answer``
 
 ### **Direct training**
-By default, run ``python main.py``will out put a BERT model and its prediction towards test set, saved as ``submission.csv``.
+By default, run ``python main.py`` will out put a BERT model and its prediction towards test set, saved as ``submission.csv``.
 
 ### **Generate data by LLM**
 If you want to generate your own question by LLM(Here take Qwen-plus model by default):
