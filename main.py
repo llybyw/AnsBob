@@ -67,7 +67,7 @@ def main():
 
     # 对测试集进行相同处理
     test_df = load_and_prepare_data(test_dir)
-    test_df['answer'] = 'A'  # 假设答案是A
+    # test_df['answer'] = 'A'  # 假设答案是A
     test_ds = create_dataset(test_df)
     tokenized_test_ds = test_ds.map(preprocess_example, batched=False, remove_columns=['prompt', 'A', 'B', 'C', 'D', 'E', 'answer'])
 
