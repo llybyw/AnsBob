@@ -24,7 +24,7 @@ def calculate_map_at_k(actual, predicted, k=3):
             correct.remove(pred)
             if not correct:
                 break
-    print(precision_sum)
+
     return precision_sum / min(num_correct, k)
 
 def evaluate_map_at_3(test_file, prediction_file):
@@ -58,23 +58,10 @@ def evaluate_map_at_3(test_file, prediction_file):
         predicted_string = predictions[question_id]
         predicted_answers = predicted_string.strip("[]").split()
 
-        
-
-        # Print the correct answer and the top 3 predicted answers
-        print(f"Question ID: {question_id}")
-        print(f"Correct Answer: {actual_answer}")
-        print(f"Predicted Answers: {predicted_answers}")
-
-        # Debugging: Check if the actual answer is in the predicted answers
-        if actual_answer in predicted_answers:
-            print(f"Correct answer {actual_answer} found in predictions.")
-
-        else:
-            print(f"Correct answer {actual_answer} NOT found in predictions.")
-
         # Calculate MAP@3 for this question
         map_at_3 = calculate_map_at_k([actual_answer], predicted_answers, k=3)
-        print(f"MAP@3 for Question ID {question_id}: {map_at_3:.4f}")
+        print(f"Question ID: {question_id} Correct Answer: [{actual_answer}] Predicted Answers: {predicted_answers} MAP@3 for Question ID {question_id}: {map_at_3:.4f}")
+        print("-------------------------------------")
         map_at_3_sum += map_at_3
 
     
