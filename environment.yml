@@ -9,4 +9,5 @@ dependencies:
   - dataclasses
   - typing
   - pytorch
-  - dashscope
+  - wikipedia-api
+  - sentence-transformers
